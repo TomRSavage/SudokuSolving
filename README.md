@@ -1,6 +1,10 @@
 # SudokuSolving
 A framework and visualisation tool for solving sudokus using stochastic optimisation
 
+<p align="center">
+ <img src="https://github.com/TomRSavage/SudokuSolving/blob/master/SodukoSolve.gif" width="700">
+</p>
+
 ## Inspiration
 
 I was recently doing a sudoku puzzle on the train to fill some time, whilst also half updating one of my GitHub repositories regarding stochastic optimisation. I had the realisation that (like most problems) if I'm clever with how I produce a cost function, I could use optimisation to do all the work for me! 
