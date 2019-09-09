@@ -11,34 +11,45 @@ unsolved=np.array([3,9,6,0,8,0,7,1,5,0,0,7,9,6,1,0,0,3,8,4,1,0,3,0,2,0,0,6,3,0,1
     
 def cost_function(x):
     global unsolved
-    a=copy.deepcopy(unsolved)
-    cost=0
+    a=copy.deepcopy(unsolved) # copying the unsolved sudoku
+    cost=0 # resetting the penalty cost
     x_count=0
-    for i in range(len(a)):
+    for i in range(len(a)): # filling the unsolved array with input values x
         if a[i]==0:
             a[i]=x[x_count]
             x_count+=1
-    a=np.reshape(a,(9,9))
-    for i in range(9):
+    a=np.reshape(a,(9,9)) # converting to 9x9 grid 
+    for i in range(9): # iterating over rows 
         row=a[i,:]
         non_dupe=set(row)
-        cost+=9-len(non_dupe)
-    for i in range(9):
+        cost+=9-len(non_dupe) # cost for each duplicate
+    for i in range(9): # iterating over columns 
         col=a[:,i]
         non_dupe=set(col)
-        cost+=9-len(non_dupe)
-    for i in range(3):
+        cost+=9-len(non_dupe) # cost for each duplicate
+    for i in range(3): # iterating over each 3x3 grid 
         for j in range(3):
             kernal=a[i*3:(i*3)+3,j*3:(j*3)+3]
             kernal=np.reshape(kernal,9)
             non_dupe=set(kernal)
-            cost+=9-len(non_dupe)
+            cost+=9-len(non_dupe) # cost for each duplicate
     return cost
  
 def plot_util(unsolved,i_best,fstore,iteration):
+    '''
+    INPUTS:
+    unsolved            : unsolved sudoku array
+    i_best              : input array
+    fstore              : cost function value array
+    iteration           : the iteration number
+    
+    OUTPUTS:
+    a .png file displaying the sudoku as well as the 
+    function value over iteration. 
+    '''
     x_count=0
     empty_array=np.zeros_like(unsolved)
-    for i in range(len(unsolved)):
+    for i in range(len(unsolved)): # filling empty sudoku
         if unsolved[i]==0:
             empty_array[i]=1
     empty_array=np.reshape(empty_array,(9,9))
@@ -75,6 +86,21 @@ def plot_util(unsolved,i_best,fstore,iteration):
     return 
 
 def evolution(f,p,it,cull_percen,mut_percen,unsolved):
+    '''
+    INPUTS: 
+    f               : sudoku cost function 
+    p               : population size
+    it              : iterations 
+    cull_percen     : percentage of population to be culled
+    mut_percen      : percentage chance of a mutation 
+    unsolved        : the unsolved sudoku vector 
+
+    OUTPUTS:
+    i_best          : the vector of optimised input values 
+    SudokuSolve.gif : a gif showing function value over time as 
+                        well as the current sudoku
+
+    '''
     empty_entries=0
     for i in range(len(unsolved)):
         if unsolved[i]==0:
@@ -153,7 +179,7 @@ def evolution(f,p,it,cull_percen,mut_percen,unsolved):
         images.append(imageio.imread(str(filename)+'.png'))
         os.remove(str(filename)+'.png')
 
-    imageio.mimsave('SodokuSolve.gif', images)
+    imageio.mimsave('SudokuSolve.gif', images)
     return i_best
 
 
