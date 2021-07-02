@@ -1,4 +1,4 @@
-# SudokuSolving
+# Sudoku Solving Framework
 A framework and visualisation tool for solving sudokus using stochastic optimisation
 
 <p align="center">
